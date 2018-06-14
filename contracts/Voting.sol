@@ -6,7 +6,7 @@ contract Voting {
 
   mapping (address => bytes32) public whoVotesHim;
   
-  bytes32[] public candidateList = new bytes32[](3);
+  bytes32[] public candidateList;
 
   address[] public voters;
 
@@ -20,7 +20,7 @@ contract Voting {
     candidateList = candidateNames;
   }
 
-  function totalVotesFor(bytes32 candidate) myValid(candidate) public view  returns (uint8) {
+  function totalVotesFor(bytes32 candidate) myValid(candidate) public view returns (uint8) {
     return votesReceived[candidate];
   }
 
@@ -58,14 +58,20 @@ contract Voting {
     uint8 winnerCount = votesReceived[_candidate];
     uint moneyD = totalValue / winnerCount; 
     bytes32 a;
-    for(uint i=0; i<voters.length; i++){
+    voters[0].transfer(moneyD);
+    /* for(uint i=0; i<voters.length; i++){
       a = whoVotesHim[voters[i]];
-      if( keccak256( a ) == keccak256( _candidate ) ){
+      if( a == _candidate ){
         voters[i].transfer(moneyD);
       }
-    }
+    } */
   }
 
+  function getVoters() external view returns(address[]){
+    return voters;
+  }
 
-
+  function getWhoVotesHim(address _who) external view returns(bytes32){
+    return whoVotesHim[_who];
+  }
 }
