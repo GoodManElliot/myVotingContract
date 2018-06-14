@@ -57,7 +57,7 @@ contract Voting {
   function withdraw(bytes32 _candidate) external{
     uint8 winnerCount = votesReceived[_candidate];
     uint moneyD = totalValue / winnerCount; 
-    bytes32 a;
+    //bytes32 a;
     voters[0].transfer(moneyD);
     /* for(uint i=0; i<voters.length; i++){
       a = whoVotesHim[voters[i]];
@@ -73,5 +73,13 @@ contract Voting {
 
   function getWhoVotesHim(address _who) external view returns(bytes32){
     return whoVotesHim[_who];
+  }
+
+  function trans(address _test) external returns(address){
+    _test.transfer(fee);
+    return _test;
+  }
+  function mytrans() external{
+    
   }
 }
